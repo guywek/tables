@@ -1,0 +1,31 @@
+.Table {
+    table {
+        border: 1px solid #333;
+
+        thead {
+            tr {
+                th {
+                    border-bottom: 1px solid #333;
+                    padding: 5px;
+                    border-right: 1px solid #aaa;
+                }
+            }
+        }
+
+        tbody {
+            tr {
+                background-color: rgba(0, 0, 0, 0.1);
+
+                &:nth-child(2n -1) {
+                    background-color: rgba(0, 0, 0, 0);
+                }
+
+                td {
+                    text-align: left;
+                    border-right: 1px solid #aaa;
+                    padding: 3px 5px;
+                }
+            }
+        }
+    }
+}

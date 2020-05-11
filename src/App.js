@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.scss";
+import Table from "./components/Table/Table";
+import SearchBar from "./components/SearchBar/SearchBar";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [people, setPeople] = useState([]);
+    const [search, setSearch] = useState("");
+
+    const filteredPeople = people.filter(person => {
+        const { first_name = "" } = person;
+        return first_name.indexOf(search) >= 0;
+    });
+
+    // this happens on mount
+    useEffect(() => {
+        fetch("http://localhost:3000/people")
+            .then(res => res.json())
+            .then(data => {
+                setPeople(data);
+            });
+    }, []);
+
+    return (
+        <div className="App">
+            <div className="search">
+                <SearchBar search={search} onSearch={setSearch} />
+            </div>
+            <Table data={filteredPeople}></Table>
+        </div>
+    );
 }
 
 export default App;
